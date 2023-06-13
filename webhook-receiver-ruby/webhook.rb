@@ -16,8 +16,6 @@ imaginary_installed_software = {
 post '/webhook' do
     data = JSON.parse(request.body.read, symbolize_names: true)
 
-    puts data
-
     detected_vulnerable_software = []
 
     # Check if one of the installed extensions (plugins & themes) is vulnerable
