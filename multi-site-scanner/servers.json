@@ -1,0 +1,8 @@
+[
+	{
+		"name": "Server1",
+		"ssh": "some-user@some-host.net",
+		"site_dir": "/",
+		"ssh_key_path": "~/.ssh/id_rsa"
+	}
+]
