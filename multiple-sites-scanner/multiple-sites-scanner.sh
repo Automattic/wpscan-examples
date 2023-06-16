@@ -8,8 +8,13 @@ fi
 
 # Assume WPScan API key is set in environment variable
 if [ -z "$WPSCAN_API_KEY" ]; then
-  echo "Error: WPScan API key not set in environment variable" >&2
-  exit 1
+	echo "Error: WPScan API key not set in environment variable" >&2
+	exit 1
+fi
+
+# Check for the servers.json file
+if [ ! -f "./servers.json" ]; then
+	echo 'Error: servers.json cannot be found' >$2
 fi
 
 is_vulnerable() {

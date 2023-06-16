@@ -27,7 +27,7 @@ This script is designed to automate WordPress vulnerability scanning using WPSca
 3. Make the script executable:
 
     ```bash
-    chmod +x wpscan_script.sh
+    chmod +x multiple-sites-scanner.sh
     ```
 
 ## Usage
@@ -38,28 +38,24 @@ This script is designed to automate WordPress vulnerability scanning using WPSca
     export WPSCAN_API_KEY=your_api_key
     ```
 
-2. Create a `input.json` file in the same directory with your server information. Use the following format:
+2. Create a `servers.json` file in the same directory with your server information. Use the following format:
 
     ```json
     [
       {
         "name": "Server1",
-        "ssh_conn": "user@server1",
-        "site_dir": "/path/to/wp/install/on/server1"
-      },
-      {
-        "name": "Server2",
-        "ssh_conn": "user@server2",
-        "site_dir": "/path/to/wp/install/on/server2"
+        "ssh": "user@server1",
+        "site_dir": "/path/to/wp/install/on/server1",
+        "ssh_key_path": "~/.ssh/id_rsa"
       }
     ]
     ```
-    Replace the `ssh_conn` and `site_dir` values with your actual SSH connection strings and WordPress installation directories.
+    Replace the `ssh`, `site_dir`, and `ssh_key_path` values with your actual SSH connection strings, WordPress installation directories, and the actual path to the ssh key.
 
 3. Run the script:
 
     ```bash
-    ./wpscan_script.sh
+    ./multiple-sites-scanner.sh
     ```
 
     The script will output a summary of the WordPress version, plugins, and themes for each server, and the results from the WPScan API.
