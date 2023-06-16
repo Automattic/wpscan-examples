@@ -62,8 +62,6 @@ This script is designed to automate WordPress vulnerability scanning using WPSca
 
 ## Notes
 
-The WPScan API call in this script is only a placeholder. You will need to replace it with an actual API call as per the WPScan API's documentation.
-
 Use caution when executing scripts in your production environment. This script has not been thoroughly tested and may need adjustments to fit your specific requirements.
 
 ## License
