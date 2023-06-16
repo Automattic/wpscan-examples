@@ -47,9 +47,9 @@ for row in $(cat servers.json | jq -r '.[] | @base64'); do
 	SSH_KEY_PATH=$(_jq '.ssh_key_path')
 
 	# Run wp-cli commands to get list of plugins, themes, and WP version using SSH key-based authentication
-    WP_VERSION=$(ssh -i $SSH_KEY_PATH ssh $SSH_CONNECTION "wp core version --path=$SITE_DIRECTORY")
-    PLUGINS=$(ssh -i $SSH_KEY_PATH ssh $SSH_CONNECTION "wp plugin list --path=$SITE_DIRECTORY --fields=name,version --format=json")
-    THEMES=$(ssh -i $SSH_KEY_PATH ssh $SSH_CONNECTION "wp theme list --path=$SITE_DIRECTORY --fields=name,version --format=json")
+	WP_VERSION=$(ssh -i $SSH_KEY_PATH ssh $SSH_CONNECTION "wp core version --path=$SITE_DIRECTORY")
+	PLUGINS=$(ssh -i $SSH_KEY_PATH ssh $SSH_CONNECTION "wp plugin list --path=$SITE_DIRECTORY --fields=name,version --format=json")
+	THEMES=$(ssh -i $SSH_KEY_PATH ssh $SSH_CONNECTION "wp theme list --path=$SITE_DIRECTORY --fields=name,version --format=json")
 
 	REPORT="\n*******************\n$SERVER_NAME Analysis Start\n\n"
 
@@ -152,5 +152,5 @@ done
 # Print overall summary
 
 for SUMMARY in "${SITE_REPORT[@]}"; do
-  	echo -e "$SUMMARY"
+	echo -e "$SUMMARY"
 done
