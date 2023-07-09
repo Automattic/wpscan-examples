@@ -7,7 +7,7 @@ hostname="$1"
 api_key="$2"
 
 # Execute WPScan and capture the output
-wpscan_output=$(wpscan --url $1 --api-token $api_key --format json)
+wpscan_output=$(wpscan --url $hostname --api-token $api_key --format json)
 
 return_code="$?"
 
@@ -18,8 +18,10 @@ if [ $return_code -eq 1 ]; then
   exit 1
 fi
 
-if [ "$return_code" -gt 1 ]; then
-  echo "CRITICAL: $return_code vulnerabilities found."
+vulnerabilities_count=$(echo $wpscan_output | jq '[.. | .vulnerabilities? // empty] | flatten | length')
+
+if [ "$vulnerabilities_count" -gt 0 ]; then
+  echo "CRITICAL: $vulnerabilities_count vulnerabilities found."
   exit 2
 else
   echo "OK: No vulnerabilities found."
