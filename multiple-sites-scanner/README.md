@@ -1,4 +1,4 @@
-# WPScan Automation Script
+# Multiple Remote Sites WPScan Automation
 
 This script is designed to automate WordPress vulnerability scanning using WPScan for multiple servers. It reads server details from a JSON file, runs WP-CLI on each server to collect data, and then sends it to the WPScan API to check for vulnerabilities.
 
