@@ -1,0 +1,26 @@
+stages:
+  - scan
+
+wpscan:
+  stage: scan
+  image: php:7.4-cli
+  script:
+    - apt-get update && apt-get install -y git unzip
+    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    - php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+    - composer require guzzlehttp/guzzle
+    # - curl -o ${CI_PROJECT_DIR}/check-wpscan-v2.php https://gitlab.com/group/project/-/raw/main/check-wpscan-v2.php
+    - echo "Running WPScan checks with WP-CONTENT=${WP_CONTENT_PATH}..."
+    - php ${CI_PROJECT_DIR}/check-wpscan-v2.php
+  variables:
+    WP_CONTENT_PATH: ${CI_PROJECT_DIR}/wp-content
+    WPSCAN_API_TOKEN: "${WPSCAN_API_TOKEN}" # Set this in GitLab CI/CD settings
+    WEBHOOK_URL: "${WEBHOOK_URL}" # Optional: Set this in GitLab CI/CD settings
+  rules:
+    - changes:
+        - '**/*'
+      when: always
+    - if: $CI_PIPELINE_SOURCE == "schedule"   # Run on scheduled pipeline
+    - if: $CI_MERGE_REQUEST_IID               # Run on merge request
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH  # Run on default branch
+    - if: $CI_PIPELINE_SOURCE == "web"        # Run when triggered manually via Web UI
